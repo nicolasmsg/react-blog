@@ -1,8 +1,10 @@
-import { FETCH_POSTS, FETCH_POST } from '../actions';
+import { FETCH_POSTS, FETCH_POST, DELETE_POST } from '../actions';
 import _ from 'lodash';
 
 export default function(state = {}, action){
   switch (action.type) {
+    case DELETE_POST:
+      _.omit(state, action.payload); // For slow connection it return a copy of the state without the deleted post
     case FETCH_POSTS:
       return _.mapKeys(action.payload.data, "id");
     case FETCH_POST:
